@@ -1,0 +1,68 @@
+local Element = require 'element'
+
+map = {}
+pictures = {'grass.png', 'water.png', 'trees.png'}
+mult = 5
+
+function love.load()
+  for x = 1, 10 do
+    map[x] = {}
+    for y = 1, 10 do
+      map[x][y] = Element:new(pictures[1])
+      map[x][y].x = (map[x][y].img:getWidth() / (2 * mult) * (x - 1)) - map[x][y].img:getWidth() / (2 * mult) * (y-2)
+      map[x][y].y = (map[x][y].img:getHeight() / (3.15 * mult) * (x - 1)) + map[x][y].img:getHeight() / (3.15 * mult) * (y-1)
+
+      map[x][y].x = map[x][y].x + 300
+      map[x][y].y = map[x][y].y + 100
+    end
+  end
+
+
+  x = love.math.random(1,10)
+  y = love.math.random(1,10)
+  map[x][y].img = love.graphics.newImage('water.png')
+  count = love.math.random(1,10)
+  for  i = 1, count do
+    if y-i < 10 and y - i > 0 then
+      map[x][y-i].img = love.graphics.newImage('water.png')
+    --  map[x+i][y].img  = love.graphics.newImage('water.png')
+    --  map[x][y+i].img = love.graphics.newImage('water.png')
+    --  map[x-i][y].img  = love.graphics.newImage('water.png')
+    end
+  end
+
+  x = x
+  y = y - count
+  if y > 10 then
+    y = 10
+  end
+  if y <= 0 then
+    y = 1
+  end
+  count = 3 --love.math.random(1,10)
+  for  i = 1, count do
+    if x-i < 10 and x - i > 0 then
+      map[y-i][x].img = love.graphics.newImage('water.png')
+      map[x+i][y].img  = love.graphics.newImage('water.png')
+      map[x][y+i].img = love.graphics.newImage('water.png')
+      map[x-i][y].img  = love.graphics.newImage('water.png')
+
+
+    end
+  end
+
+
+end
+
+function love.update(dt)
+
+end
+
+
+function love.draw()
+  for x = 1, 10 do
+    for y = 1,10 do
+      love.graphics.draw(map[x][y].img, map[x][y].x, map[x][y].y, 0, 1/mult)
+    end
+  end
+end
