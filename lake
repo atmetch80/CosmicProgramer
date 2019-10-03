@@ -3,7 +3,6 @@ local Element = require 'element'
 map = {}
 pictures = {'grass.png', 'water.png', 'trees.png'}
 mult = 5
-
 function love.load()
   for x = 1, 10 do
     map[x] = {}
